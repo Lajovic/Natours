@@ -7,7 +7,7 @@ const router = express.Router()
 
 router.get(
 	'/',
-	bookingController.createBookingCheckout,
+	// bookingController.createBookingCheckout, // Temporário para testar pagamentos sem precisar da aplicação hospedada
 	authController.isLoggedIn,
 	viewController.getOverview
 )

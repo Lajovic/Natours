@@ -16,7 +16,7 @@ const { getDate } = require('./business/helpersBusiness')
 const { throwError } = require('./controllers/errController')
 const { globalErrorHandler } = require('./controllers/errController')
 const compression = require('compression')
-const cors = require('cors');
+const cors = require('cors')
 
 const app = express()
 
@@ -37,6 +37,13 @@ const conectionsLimiter = rateLimit({
 	message: 'Too many requests from this IP, please try again in an hour!',
 })
 app.use('/api', conectionsLimiter)
+
+// Os dados do body não podem estar em JSON pra isso funcionar, por isso essa rota está nessa posição.
+app.post(
+	'/webhook-checkout',
+	express.raw({ type: 'application/json' }),
+	bookingController.webhookCheckout
+)
 
 // BodyParser, 10kb é o limite de tamanho que definimos para o app aceitar por segurança, mas é opcional
 app.use(express.json({ limit: '10kb' }))
