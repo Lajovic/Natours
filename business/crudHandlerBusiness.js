@@ -1,6 +1,6 @@
 const { throwError } = require('./../controllers/errController')
 const { asyncCatcher } = require('./../controllers/errController')
-const QueryBuilder = require('../Business/queryBusiness')
+const QueryBuilder = require('./queryBusiness')
 
 exports.create = (Model) =>
 	asyncCatcher(async (req, res, next) => {
