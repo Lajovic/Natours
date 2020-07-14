@@ -12,7 +12,7 @@ const logoutBtn = document.querySelector('.nav__el--logout')
 const userDataForm = document.querySelector('.form-user-data')
 const userDataPassword = document.querySelector('.form-user-password')
 const bookBtn = document.querySelector('#bookTour')
-const alertMessage = document.querySelector('body').dataset.alertMessage
+const alertMessage = document.querySelector('body').dataset.alert
 
 if (loginForm)
 	loginForm.addEventListener('submit', (e) => {
