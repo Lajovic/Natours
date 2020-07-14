@@ -41,17 +41,13 @@ exports.getCheckoutSession = asyncCatcher(async (req, res, next) => {
 })
 
 const createBookingCheckout = async (session) => {
-	const tour = session.client_reference_id
+	const tourId = session.client_reference_id
 	const user = await User.findOne({ email: session.customer_email })
 	const price = session.display_items[0].amount / 100 // de centavos pra dólares
-	try {
-		await Boooking.create(tour, user, price)
-	} catch (err) {
-		console.error('Houve um erro ao criar o booking da Tour.');
-	}
+	await Boooking.create(tourId, user.id, price)
 }
 
-exports.webhookCheckout = asyncCatcher(async(req, res, next) => {
+exports.webhookCheckout = asyncCatcher(async (req, res, next) => {
 	const signature = req.headers['stripe-signature']
 	const stripe = Stripe(process.env.STRIPE_KEY)
 	let event
@@ -60,9 +56,7 @@ exports.webhookCheckout = asyncCatcher(async(req, res, next) => {
 	} catch (err) {
 		return res.status(400).send(`WebhookCheckout error: ${err.message}`)
 	}
-	if (event.type === 'checkout.session.completed') 
-		await createBookingCheckout(event.data.object)
-
+	if (event.type === 'checkout.session.completed') await createBookingCheckout(event.data.object)
 	res.status(200).json({ received: true })
 })
 
