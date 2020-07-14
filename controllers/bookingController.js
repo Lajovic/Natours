@@ -44,7 +44,7 @@ const createBookingCheckout = async (session) => {
 	const tourId = session.client_reference_id
 	const user = await User.findOne({ email: session.customer_email })
 	const price = session.display_items[0].amount / 100 // de centavos pra dólares
-	await Boooking.create(tourId, user.id, price)
+	await Booking.create(tourId, user.id, price)
 }
 
 exports.webhookCheckout = asyncCatcher(async (req, res, next) => {
