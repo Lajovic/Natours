@@ -5,6 +5,8 @@ const bookingController = require('./../controllers/bookingController')
 
 const router = express.Router()
 
+router.use(viewController.alerts)
+
 router.get(
 	'/',
 	// bookingController.createBookingCheckout, // Temporário para testar pagamentos sem precisar da aplicação hospedada

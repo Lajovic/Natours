@@ -4,6 +4,7 @@ import { displayMap } from './mapBox'
 import { logout } from './login'
 import { updateUserSettings } from './updateUserSettings'
 import { bookTour } from './payment'
+import { displayAlert } from './alerts'
 
 const mapBox = document.getElementById('map')
 const loginForm = document.querySelector('.form--login')
@@ -11,6 +12,7 @@ const logoutBtn = document.querySelector('.nav__el--logout')
 const userDataForm = document.querySelector('.form-user-data')
 const userDataPassword = document.querySelector('.form-user-password')
 const bookBtn = document.querySelector('#bookTour')
+const alertMessage = document.querySelector('body').dataset.alertMessage
 
 if (loginForm)
 	loginForm.addEventListener('submit', (e) => {
@@ -71,3 +73,6 @@ if (mapBox) {
 	const locations = JSON.parse(mapBox.dataset.locations)
 	displayMap(locations)
 }
+
+if (alertMessage)
+	displayAlert('success', alertMessage, 20)

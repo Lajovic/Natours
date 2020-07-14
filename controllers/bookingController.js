@@ -16,7 +16,6 @@ exports.getCheckoutSession = asyncCatcher(async (req, res, next) => {
 			// success_url: `${req.protocol}://${req.get('host')}/?tour=${req.params.tourId}&user=${
 			// 	req.user.id
 			// }&price=${tour.price}`,
-			success_url: `${baseURL}/my-tours/`,
 			line_items: [
 				{
 					name: `${tour.name} Tour`,
@@ -27,6 +26,7 @@ exports.getCheckoutSession = asyncCatcher(async (req, res, next) => {
 					quantity: 1,
 				},
 			],
+			success_url: `${baseURL}/my-tours/?alert=booking`,
 			cancel_url: `${baseURL}/tour/${tour.slug}`,
 			customer_email: req.user.email,
 			client_reference_id: req.params.tourId,
